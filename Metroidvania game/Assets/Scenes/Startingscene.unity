@@ -280,6 +280,10 @@ MonoBehaviour:
   rb: {fileID: 1908266644}
   moveSpeed: 5
   jumpPower: 10
+  groundCheck: {fileID: 2142057329}
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 4294967295
 --- !u!114 &1908266642
 MonoBehaviour:
   m_ObjectHideFlags: 0

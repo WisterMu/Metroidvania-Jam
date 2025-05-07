@@ -7,7 +7,7 @@ public class PlayerMovement : MonoBehaviour
     public Rigidbody2D rb;
     public float moveSpeed = 5f;
     float horizontalMovement;
-    public float jumpPower = 10f;
+    public float jumpPower = 8f;
 
     private float coyoteTime = 0.2f;
     private float coyoteTimeCounter;
@@ -27,7 +27,8 @@ public class PlayerMovement : MonoBehaviour
         }
         else
         {
-            coyoteTimeCounter -= Time.deltaTime;
+           
+            coyoteTimeCounter = 0f;
         }
         
     }
@@ -50,8 +51,9 @@ public class PlayerMovement : MonoBehaviour
         {
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, rb.linearVelocity.y * 0.5f);
 
-            coyoteTimeCounter = 0f;
         }
+
+        
     }
 
     //Checks if player is grounded or not

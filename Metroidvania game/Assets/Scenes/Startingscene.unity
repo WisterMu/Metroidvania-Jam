@@ -283,7 +283,7 @@ MonoBehaviour:
   groundCheck: {fileID: 2142057329}
   groundLayer:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 8
 --- !u!114 &1908266642
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -635,7 +635,7 @@ GameObject:
   - component: {fileID: 2142057329}
   - component: {fileID: 2142057328}
   - component: {fileID: 2142057330}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Platform
   m_TagString: Untagged
   m_Icon: {fileID: 0}

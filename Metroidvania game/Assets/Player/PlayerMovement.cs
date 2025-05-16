@@ -7,29 +7,16 @@ public class PlayerMovement : MonoBehaviour
     public Rigidbody2D rb;
     public float moveSpeed = 5f;
     float horizontalMovement;
-    public float jumpPower = 8f;
 
-    private float coyoteTime = 0.2f;
-    private float coyoteTimeCounter;
+    public float jumpPower = 10f;
+    public Transform groundCheckPos;
+    public Vector2 groundCheckSize = new Vector2(0.5f, 0.05f);
+    public LayerMask groundLayer;
 
-    [SerializeField] private Transform groundCheck;
-    [SerializeField] private LayerMask groundLayer;
 
     void Update()
     {
         rb.linearVelocity = new Vector2(horizontalMovement * moveSpeed, rb.linearVelocity.y);
-
-        //Checks if player is grounded before adding jump in queue
-        if (IsGrounded())
-        {
-            coyoteTimeCounter = coyoteTime;
-            
-        }
-        else
-        {
-           
-            coyoteTimeCounter = 0f;
-        }
         
     }
 
@@ -41,25 +28,35 @@ public class PlayerMovement : MonoBehaviour
 
     public void Jump(InputAction.CallbackContext context)
     {
-        //Jump when holding space
-        if (coyoteTimeCounter > 0f && context.performed)
+
+        if(isGrounded())
+        {
+        if(context.performed)
         {
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpPower);
         }
-        //Short jump when tapping space
-        else if (context.canceled)
+        else if(context.canceled)
         {
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, rb.linearVelocity.y * 0.5f);
-
         }
-
-        
+        }
     }
 
-    //Checks if player is grounded or not
-    private bool IsGrounded()
+    private bool isGrounded()
     {
-        return Physics2D.OverlapCircle(groundCheck.position, 0.2f, groundLayer);
+        if(Physics2D.OverlapBox(groundCheckPos.position, groundCheckSize, 0, groundLayer))
+        {
+            return true;
+        }
+        return false;
     }
+
+    //Groundcheck so player can't fly by spamming jump
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.white;
+        Gizmos.DrawWireCube(groundCheckPos.position, groundCheckSize);
+    }
+   
 
 }

@@ -21,6 +21,8 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
         rb.linearVelocity = new Vector2(horizontalMovement * moveSpeed, rb.linearVelocity.y);
+
+        Gravity();  
         
     }
 
@@ -30,6 +32,10 @@ public class PlayerMovement : MonoBehaviour
         {
             rb.gravityScale = baseGravity * fallSpeedMultiplier; //fall increasingly faster
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, Mathf.Max(rb.linearVelocity.y, -maxFallSpeed));
+        }
+        else
+        {
+            rb.gravityScale = baseGravity;
         }
     }
 
@@ -42,17 +48,18 @@ public class PlayerMovement : MonoBehaviour
     public void Jump(InputAction.CallbackContext context)
     {
 
-        if(isGrounded())
+    if (isGrounded())
+    {
+        if (context.performed)
         {
-        if(context.performed)
-        {
-            rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpPower);
+            rb.linearVelocity += new Vector2(0, jumpPower);
         }
-        else if(context.canceled)
-        {
-            rb.linearVelocity = new Vector2(rb.linearVelocity.x, rb.linearVelocity.y * 0.5f);
-        }
-        }
+    }
+
+    if (context.canceled)
+    {
+        rb.linearVelocity += new Vector2(0, -(jumpPower * 0.5f));
+    }
     }
 
     private bool isGrounded()

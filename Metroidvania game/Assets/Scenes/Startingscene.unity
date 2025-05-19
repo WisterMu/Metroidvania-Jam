@@ -460,7 +460,7 @@ Rigidbody2D:
   m_LinearDamping: 0
   m_AngularDamping: 0.05
   m_GravityScale: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 6659d3b60c5662a49a0f66979582cc3d, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -556,12 +556,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rb: {fileID: 1908266644}
   moveSpeed: 5
-  jumpPower: 10
+  jumpPower: 13.8
   groundCheckPos: {fileID: 513245160}
   groundCheckSize: {x: 1.03, y: 0.07}
   groundLayer:
     serializedVersion: 2
     m_Bits: 8
+  baseGravity: 2
+  maxFallSpeed: 18
+  fallSpeedMultiplier: 2
 --- !u!1 &2006602001
 GameObject:
   m_ObjectHideFlags: 0

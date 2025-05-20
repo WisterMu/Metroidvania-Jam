@@ -74,8 +74,11 @@ public class PlayerMovement : MonoBehaviour
     //Groundcheck so player can't fly by spamming jump
     private void OnDrawGizmosSelected()
     {
-        Gizmos.color = Color.white;
+        Gizmos.color = Color.red;
         Gizmos.DrawWireCube(groundCheckPos.position, groundCheckSize);
+        Gizmos.color = Color.blue;
+        // Draw the player's collider
+        Gizmos.DrawWireCube(gameObject.transform.position, gameObject.transform.localScale);
     }
    
 

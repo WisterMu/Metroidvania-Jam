@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 25131244eb8a681428b534327dd07a29
+guid: ca5359086d7740a4cab2698f5cc30f7b
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -4297137655041757607
-    second: mitochondria_0
+      213: -6428152001202204820
+    second: Form_One_Standing_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -97,19 +97,6 @@ TextureImporter:
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 4
-    buildTarget: WindowsStoreApps
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    ignorePlatformSupport: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 4
     buildTarget: WebGL
     maxTextureSize: 2048
     resizeAlgorithm: 0
@@ -126,13 +113,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: mitochondria_0
+      name: Form_One_Standing_0
       rect:
         serializedVersion: 2
-        x: 0
+        x: 22
         y: 0
-        width: 332
-        height: 378
+        width: 445
+        height: 498
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -141,8 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 95ee748e1108d54c0800000000000000
-      internalID: -4297137655041757607
+      spriteID: c6f402e00dd9ac6a0800000000000000
+      internalID: -6428152001202204820
       vertices: []
       indices: 
       edges: []
@@ -160,8 +147,7 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable:
-      mitochondria_0: -4297137655041757607
+    nameFileIdTable: {}
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

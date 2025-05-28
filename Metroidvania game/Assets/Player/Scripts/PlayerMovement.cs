@@ -5,6 +5,7 @@ public class PlayerMovement : MonoBehaviour
 {
 
     public Rigidbody2D rb;
+    public Animator animator;
     public float moveSpeed = 5f;
     float horizontalMovement;
 
@@ -22,9 +23,11 @@ public class PlayerMovement : MonoBehaviour
     {
         rb.linearVelocity = new Vector2(horizontalMovement * moveSpeed, rb.linearVelocity.y);
 
-        Gravity();  
-        
-    }
+        Gravity();
+
+        animator.SetFloat("yVelocity", rb.linearVelocity.y);
+        animator.SetFloat("magnitude", rb.linearVelocity.magnitude);
+    }   
 
     public void Gravity()
     {
@@ -50,16 +53,19 @@ public class PlayerMovement : MonoBehaviour
 
     if (isGrounded())
     {
-        if (context.performed)
-        {
-            rb.linearVelocity += new Vector2(0, jumpPower);
-        }
+            if (context.performed)
+            {
+                rb.linearVelocity += new Vector2(0, jumpPower);
+
+                animator.SetTrigger("jump");
+            }
     }
 
-    if (context.canceled)
-    {
-        rb.linearVelocity += new Vector2(0, -(jumpPower * 0.5f));
-    }
+        if (context.canceled)
+        {
+            rb.linearVelocity += new Vector2(0, -(jumpPower * 0.5f));
+            animator.SetTrigger("jump");
+         }
     }
 
     private bool isGrounded()

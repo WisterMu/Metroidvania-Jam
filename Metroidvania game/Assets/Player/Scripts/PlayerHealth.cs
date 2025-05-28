@@ -27,11 +27,16 @@ public class Health : MonoBehaviour
         if (isInvulnerable)
         {
             invulTimer += Time.deltaTime;
+            // Flash the player sprite to indicate invulnerability
+            GetComponentInChildren<SpriteRenderer>().color = Color.Lerp(new Color(1f, 1f, 1f, 0.7f), new Color(1f, 0, 0, 0.9f), Mathf.PingPong(Time.time * 4, 1));
+
             if (invulTimer >= invulFrameDuration)
             {
+                Debug.Log("Player is no longer invulnerable.");
                 isInvulnerable = false;
                 invulTimer = 0f;
-                Debug.Log("Player is no longer invulnerable.");
+                // Reset player sprite color to normal
+                GetComponentInChildren<SpriteRenderer>().color = Color.white;
             }
         }
 

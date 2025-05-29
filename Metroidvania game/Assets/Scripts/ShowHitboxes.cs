@@ -35,12 +35,22 @@ public class ShowHitboxes : MonoBehaviour
             Debug.LogWarning("No colliders found on this GameObject. Please add a collider to visualize hitboxes.");
         }
 
-        Color[] colors = new Color[colliders.Length + transforms.Length]; // Array to hold colors for each collider
-        // Assign a unique color to each collider for visualization
-        for (int i = 0; i < colors.Length; i++)
+        Color[] colors; // Array to hold colors for each collider
+        if (transforms.Length == 0)
         {
-            colors[i] = new Color(Random.value, Random.value, Random.value, 1);
+            colors = new Color[colliders.Length]; // Array to hold colors for each collider
         }
+        else
+        {
+            colors = new Color[colliders.Length + transforms.Length]; // Array to hold colors for each collider
+        }
+
+
+            // Assign a unique color to each collider for visualization
+            for (int i = 0; i < colors.Length; i++)
+            {
+                colors[i] = new Color(Random.value, Random.value, Random.value, 1);
+            }
         // Gizmos.DrawWireCube(transform.position, transform.localScale);
         // Draw the player's collider
         int j = 0;
@@ -53,6 +63,11 @@ public class ShowHitboxes : MonoBehaviour
                 Gizmos.DrawWireCube(collider.bounds.center, collider.bounds.size);
                 j++;
             }
+        }
+        
+        if (transforms.Length == 0)
+        {
+            return; // Exit if no transforms are provided
         }
         foreach (Transform transform in transforms)
         {

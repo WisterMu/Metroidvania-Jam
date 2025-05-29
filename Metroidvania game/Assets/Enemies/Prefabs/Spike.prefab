@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 6905375735552167073}
   - component: {fileID: 3837575740397378866}
   - component: {fileID: 5490574918817642671}
+  - component: {fileID: 7267362179381269616}
   m_Layer: 6
   m_Name: Spike
   m_TagString: Enemy
@@ -28,7 +29,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -8.313, y: -1.103, z: 0}
-  m_LocalScale: {x: 1.0576, y: 0.9482, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -122,7 +123,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0, y: 0.12}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.28866667}
@@ -132,5 +133,19 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.8, y: 0.82}
   m_EdgeRadius: 0
+--- !u!114 &7267362179381269616
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2143947925636486793}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9804124438c812b428ed1448e6d33ae5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  showHitboxes: 1
+  transforms: []

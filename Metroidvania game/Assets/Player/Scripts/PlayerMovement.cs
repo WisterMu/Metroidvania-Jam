@@ -5,7 +5,7 @@ public class PlayerMovement : MonoBehaviour
 {
 
     public Rigidbody2D rb;
-    public Animator animator;
+    public Animator animator = null;
     public float moveSpeed = 5f;
     float horizontalMovement;
 

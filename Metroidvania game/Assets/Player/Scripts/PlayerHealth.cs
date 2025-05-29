@@ -64,10 +64,11 @@ public class Health : MonoBehaviour
 
     private void checkForTriggerZone()
     {
-        Collider2D hit = Physics2D.OverlapBox(transform.position, damageHitbox.size, 0f, LayerMask.GetMask("Enemy"));
+        Collider2D hit = Physics2D.OverlapBox(transform.position, damageHitbox.size * transform.localScale, 0f, LayerMask.GetMask("Enemy"));
         if (hit != null && hit.CompareTag("Enemy"))
         {
             // Debug.Log("Player is colliding with an enemy!");
+            Debug.Log("Player is colliding with an enemy: " + hit.name);
             takeDamage();
         }
     }

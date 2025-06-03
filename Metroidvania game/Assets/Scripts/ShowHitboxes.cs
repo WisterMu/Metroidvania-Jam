@@ -45,12 +45,12 @@ public class ShowHitboxes : MonoBehaviour
             colors = new Color[colliders.Length + transforms.Length]; // Array to hold colors for each collider
         }
 
-
-            // Assign a unique color to each collider for visualization
-            for (int i = 0; i < colors.Length; i++)
-            {
-                colors[i] = new Color(Random.value, Random.value, Random.value, 1);
-            }
+        // Assign a unique color to each collider for visualization
+        // Accidentally made it flicker rainbow but we keep those
+        for (int i = 0; i < colors.Length; i++)
+        {
+            colors[i] = new Color(Random.value, Random.value, Random.value, 1);
+        }
         // Gizmos.DrawWireCube(transform.position, transform.localScale);
         // Draw the player's collider
         int j = 0;

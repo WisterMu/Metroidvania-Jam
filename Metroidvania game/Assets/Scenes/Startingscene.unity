@@ -7567,13 +7567,13 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1908266646}
+  - component: {fileID: 1908266650}
   - component: {fileID: 1908266644}
   - component: {fileID: 1908266643}
   - component: {fileID: 1908266642}
   - component: {fileID: 1908266647}
   - component: {fileID: 1908266648}
   - component: {fileID: 1908266649}
-  - component: {fileID: 1908266650}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -7785,6 +7785,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rb: {fileID: 1908266644}
+  animator: {fileID: 1908266650}
   moveSpeed: 5
   jumpPower: 13.8
   groundCheckPos: {fileID: 513245160}
@@ -7874,7 +7875,7 @@ Animator:
   m_GameObject: {fileID: 1908266640}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: b971654b0b5f3df439e33dbd860f7ff0, type: 2}
+  m_Controller: {fileID: 9100000, guid: 6d2932608d7148245ba297cc43ac9f7f, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0

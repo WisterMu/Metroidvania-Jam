@@ -20,7 +20,7 @@ public class EnemyMovement : MonoBehaviour
 
     [Header("Walker Chaser Settings")]
     public float chaseRange = 5f; // Range within which the enemy will chase the target
-    public Transform target; // Target to follow (e.g., player)
+    private Transform target; // Target to follow (e.g., player)
     private Rigidbody2D rb; // Rigidbody component for physics interactions
     private Vector2 movement; // Movement vector for the enemy
     private bool isFacingRight = true; // Flag to check if the enemy is facing right
@@ -30,7 +30,7 @@ public class EnemyMovement : MonoBehaviour
     private float stuckTimer = 0f; // Timer to track if the enemy is stuck
     private SpriteRenderer spriteRenderer; // SpriteRenderer component for flipping the enemy sprite
 
-    // private Animator animator; // Animator component for animations
+    private Animator animator; // Animator component for animations
 
     [SerializeField]
     private Vector2 lastPosition; // Last position of the enemy for movement calculations
@@ -42,25 +42,46 @@ public class EnemyMovement : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponentInChildren<SpriteRenderer>();
-        // animator = GetComponent<Animator>();
+        animator = GetComponent<Animator>();
 
         if (groundCheckPos == null)
         {
             Debug.LogError("Ground Check Position is not assigned in the inspector.");
+        }
+
+        if (animator == null)
+        {
+            // No animator for this enemy
+            Debug.LogWarning("Animator component not found for " + gameObject.name + ". Enemy will not have animations.");
+        }
+
+        // Find the player by tag
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+
+        if (player != null)
+        {
+            target = player.transform;
+        }
+        else
+        {
+            Debug.LogError("Player not found in the scene. Enemy will not chase any target.");
         }
     }
 
     // Update is called once per frame
     void Update()
     {
-        // animator.SetFloat("Speed", Mathf.Abs(movement.x));
+        if (animator != null)  // only set if animator exists
+        {
+            animator.SetFloat("VelocityX", movement.x);  // currently unused
+        }
 
-        // Update the sprite's facing direction based on current movement
-        if (movement.x > 0)
+        // Update the sprite based on the facing direction
+        if (isFacingRight)
         {
             spriteRenderer.flipX = false; // Flip the sprite to face right
         }
-        else if (movement.x < 0)
+        else
         {
             spriteRenderer.flipX = true; // Flip the sprite to face left
         }
@@ -167,12 +188,10 @@ public class EnemyMovement : MonoBehaviour
                 if (target.position.x > transform.position.x && !isFacingRight)
                 {
                     isFacingRight = true; // Face right
-                    spriteRenderer.flipX = false; // Flip the sprite to face right
                 }
                 else if (target.position.x < transform.position.x && isFacingRight)
                 {
                     isFacingRight = false; // Face left
-                    spriteRenderer.flipX = true; // Flip the sprite to face left
                 }
             }
         }

@@ -87,6 +87,9 @@ public class EnemyMovement : MonoBehaviour
             {
                 stuckTimer += Time.deltaTime;
             }
+
+            // Drag it down a bit to prevent it from floating
+            rb.AddForce(new Vector2(0, -1f), ForceMode2D.Force); // Apply a small downward force to prevent floating
         }
         else
         {
@@ -143,25 +146,39 @@ public class EnemyMovement : MonoBehaviour
 
         if (distanceToTarget < chaseRange)
         {
-            movement.x = (target.position.x - transform.position.x) > 0 ? moveSpeed : -moveSpeed;
+            // Basic walking logic for the enemy
+            movement.x = moveSpeed * (isFacingRight ? 1 : -1);
             rb.linearVelocity = new Vector2(movement.x, rb.linearVelocity.y);
 
-            if (isGrounded() && UnityEngine.Random.Range(0f, 1f) < 0.01f) // Randomly jump with a small chance
+            if (isGrounded() && target.position.y > transform.position.y + 0.5f) // Jump if player is above enemy
             {
+                Debug.Log("Enemy jumping");
                 rb.AddForce(new Vector2(0, jumpForce), ForceMode2D.Impulse);
             }
 
-            // Flip the enemy to face the target
-            if ((movement.x > 0 && !isFacingRight) || (movement.x < 0 && isFacingRight))
+            // Cooldown on flipping to prevent spazzing
+            if (flipTimer > 0f)
             {
-                isFacingRight = !isFacingRight;
-                transform.localScale = new Vector3(isFacingRight ? 1 : -1, 1, 1);
+                flipTimer -= Time.deltaTime;
+            }
+            else
+            {
+                // Face the player
+                if (target.position.x > transform.position.x && !isFacingRight)
+                {
+                    isFacingRight = true; // Face right
+                    spriteRenderer.flipX = false; // Flip the sprite to face right
+                }
+                else if (target.position.x < transform.position.x && isFacingRight)
+                {
+                    isFacingRight = false; // Face left
+                    spriteRenderer.flipX = true; // Flip the sprite to face left
+                }
             }
         }
         else
         {
-            movement.x = 0; // Stop moving when out of chase range
-            rb.linearVelocity = new Vector2(movement.x, rb.linearVelocity.y);
+            Patrol(); // If the target is out of range, patrol normally
         }
     }
 }

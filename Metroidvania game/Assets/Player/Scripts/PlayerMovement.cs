@@ -18,6 +18,14 @@ public class PlayerMovement : MonoBehaviour
     public float maxFallSpeed = 18f;
     public float fallSpeedMultiplier = 2f;
 
+    private SpriteRenderer spriteRenderer; // SpriteRenderer component for flipping the player sprite
+    private bool isFacingRight = true; // Flag to check if the enemy is facing right
+
+
+    void Start()
+    {
+        spriteRenderer = GetComponentInChildren<SpriteRenderer>();
+    }
 
     void Update()
     {
@@ -26,8 +34,18 @@ public class PlayerMovement : MonoBehaviour
 
         animator.SetFloat("yVelocity", rb.linearVelocity.y);
         animator.SetFloat("magnitude", rb.linearVelocity.magnitude);
-        
+
         Gravity();
+        
+        // Update the sprite based on the facing direction
+        if (isFacingRight)
+        {
+            spriteRenderer.flipX = false; // Flip the sprite to face right
+        }
+        else
+        {
+            spriteRenderer.flipX = true; // Flip the sprite to face left
+        }
     }   
 
     public void Gravity()
@@ -47,6 +65,15 @@ public class PlayerMovement : MonoBehaviour
     {
         //movement left and right
         horizontalMovement = context.ReadValue<Vector2>().x;
+
+        if (horizontalMovement > 0)
+        {
+            isFacingRight = true; // Player is moving right
+        }
+        else if (horizontalMovement < 0)
+        {
+            isFacingRight = false; // Player is moving left
+        }
     }
 
     public void Jump(InputAction.CallbackContext context)

@@ -37,6 +37,7 @@ Transform:
   m_Children:
   - {fileID: 306761829877610794}
   - {fileID: 5481821909446962115}
+  - {fileID: 8243601190668758047}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!50 &6716198204534606757
@@ -127,6 +128,7 @@ MonoBehaviour:
   showHitboxes: 1
   transforms:
   - {fileID: 306761829877610794}
+  - {fileID: 8243601190668758047}
 --- !u!114 &6515188232616277879
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -139,14 +141,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3996f6c02d1b51e40876ee6025f8e755, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyType: 1
+  enemyType: 2
   moveSpeed: 3
   jumpForce: 5
   groundCheckPos: {fileID: 306761829877610794}
-  chaseRange: 5
-  target: {fileID: 0}
   lastPosition: {x: 0, y: 0}
   deltaPosition: {x: 0, y: 0}
+  chaseRange: 5
+  flightPath: {fileID: 8243601190668758047}
 --- !u!114 &8245182659327172068
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -210,6 +212,37 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0, y: -0.76, z: 0}
   m_LocalScale: {x: 1.9344378, y: 0.06, z: 1.0071}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7378040387560225329}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &5316209875408785728
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8243601190668758047}
+  m_Layer: 6
+  m_Name: flightPath
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8243601190668758047
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5316209875408785728}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 9.385165, y: 0.176, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7378040387560225329}

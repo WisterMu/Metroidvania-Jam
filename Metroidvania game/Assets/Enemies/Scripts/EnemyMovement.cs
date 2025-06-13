@@ -5,7 +5,8 @@ public enum EnemyType
 {
     WalkerBasic,
     WalkerChaser,
-    Flyer
+    FlyerBasic,
+    FlyerChaser
 }
 
 public class EnemyMovement : MonoBehaviour
@@ -17,6 +18,13 @@ public class EnemyMovement : MonoBehaviour
     public float moveSpeed = 3f; // Speed at which the enemy moves
     public float jumpForce = 2f; // Force applied when the enemy jumps
     public Transform groundCheckPos; // Position to check if the enemy is grounded
+    [SerializeField]
+    private Vector2 lastPosition; // Last position of the enemy for movement calculations
+    [SerializeField]
+    private Vector2 deltaPosition; // Change in position for movement calculations
+    private SpriteRenderer spriteRenderer; // SpriteRenderer component for flipping the enemy sprite
+
+    private Animator animator; // Animator component for animations
 
     [Header("Walker Chaser Settings")]
     public float chaseRange = 5f; // Range within which the enemy will chase the target
@@ -28,14 +36,10 @@ public class EnemyMovement : MonoBehaviour
     private float flipTimer = 0f; // Timer to track the cooldown for flipping
     private const float stuckCooldown = 0.5f; // Time to wait before flipping if stuck
     private float stuckTimer = 0f; // Timer to track if the enemy is stuck
-    private SpriteRenderer spriteRenderer; // SpriteRenderer component for flipping the enemy sprite
 
-    private Animator animator; // Animator component for animations
+    [Header("Flyer Settings")]
+    public Transform flightPath; // Path for the flying enemy to follow
 
-    [SerializeField]
-    private Vector2 lastPosition; // Last position of the enemy for movement calculations
-    [SerializeField]
-    private Vector2 deltaPosition; // Change in position for movement calculations
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -65,6 +69,32 @@ public class EnemyMovement : MonoBehaviour
         else
         {
             Debug.LogError("Player not found in the scene. Enemy will not chase any target.");
+        }
+
+        if (enemyType == EnemyType.FlyerChaser || enemyType == EnemyType.FlyerBasic)
+        {
+            rb.gravityScale = 0; // Disable gravity for flying enemies
+            if (flightPath == null)
+            {
+                Debug.LogError("Flight Path is not assigned for flying enemy " + gameObject.name + ". Enemy will not fly.");
+            }
+            else
+            {
+                // Save its world position/rotation before unparenting
+                Vector3 worldPos = flightPath.position;
+                Quaternion worldRot = flightPath.rotation;
+
+                // Unparent it so it no longer moves with this object
+                flightPath.parent = null;
+
+                // Reapply world position/rotation so nothing shifts visually
+                flightPath.position = worldPos;
+                flightPath.rotation = worldRot;
+            }
+        }
+        else
+        {
+            rb.gravityScale = 1; // Enable gravity for walking enemies
         }
     }
 
@@ -98,6 +128,11 @@ public class EnemyMovement : MonoBehaviour
         {
             Patrol();
         }
+        else if (enemyType == EnemyType.FlyerBasic)
+        {
+            Patrol();
+            Fly();
+        }
 
         deltaPosition = rb.position - lastPosition; // Calculate the change in position
         if (Math.Abs(deltaPosition.x) < 0.001f)
@@ -108,9 +143,6 @@ public class EnemyMovement : MonoBehaviour
             {
                 stuckTimer += Time.deltaTime;
             }
-
-            // Drag it down a bit to prevent it from floating
-            rb.AddForce(new Vector2(0, -1f), ForceMode2D.Force); // Apply a small downward force to prevent floating
         }
         else
         {
@@ -148,7 +180,12 @@ public class EnemyMovement : MonoBehaviour
         }
         else
         {
-            // Flip the enemy if it reaches the edge of the platform
+            if (enemyType == EnemyType.FlyerChaser || enemyType == EnemyType.FlyerBasic)
+            {
+                return; // Skip the rest of the patrol logic for flying enemies
+            }
+
+            // Walkers flip if it reaches the edge of the platform
             if (Physics2D.Raycast(transform.position, Vector2.down, 1f, LayerMask.GetMask("Floor")).collider == null || stuckTimer >= stuckCooldown)
             {
                 isFacingRight = !isFacingRight;
@@ -159,7 +196,7 @@ public class EnemyMovement : MonoBehaviour
         }
 
     }
-    
+
     private void ChaseTarget()
     {
         // Chasing logic for the enemy
@@ -199,5 +236,27 @@ public class EnemyMovement : MonoBehaviour
         {
             Patrol(); // If the target is out of range, patrol normally
         }
+    }
+
+    private void Fly()
+    {
+        // Flying logic for the enemy
+        // Stays within bounds of flight path transform
+        if (flightPath != null)
+        {
+            // If past left edge of flight path, flip direction
+            if (transform.position.x < flightPath.position.x - flightPath.localScale.x / 2)
+            {
+                isFacingRight = true;
+            }
+
+            // If past right edge of flight path, flip direction
+            if (transform.position.x > flightPath.position.x + flightPath.localScale.x / 2)
+            {
+                isFacingRight = false;
+            }
+            
+        }
+
     }
 }

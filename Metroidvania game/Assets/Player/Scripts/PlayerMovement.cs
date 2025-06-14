@@ -4,12 +4,13 @@ using UnityEngine.InputSystem;
 public class PlayerMovement : MonoBehaviour
 {
 
+    public PlayerAttack playerAttack;
     public Rigidbody2D rb;
     public Animator animator;
     public float moveSpeed = 5f;
     float horizontalMovement;
 
-    public float jumpPower = 10f;
+    public float jumpPower = 10f;   
     public Transform groundCheckPos;
     public Vector2 groundCheckSize = new Vector2(0.5f, 0.05f);
     public LayerMask groundLayer;
@@ -36,7 +37,7 @@ public class PlayerMovement : MonoBehaviour
         animator.SetFloat("magnitude", rb.linearVelocity.magnitude);
 
         Gravity();
-        
+
         // Update the sprite based on the facing direction
         if (isFacingRight)
         {
@@ -46,6 +47,8 @@ public class PlayerMovement : MonoBehaviour
         {
             spriteRenderer.flipX = true; // Flip the sprite to face left
         }
+
+        playerAttack.isFacingRight = isFacingRight;
     }   
 
     public void Gravity()

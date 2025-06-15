@@ -137,7 +137,7 @@ public class EnemyMovement : MonoBehaviour
         deltaPosition = rb.position - lastPosition; // Calculate the change in position
         if (Math.Abs(deltaPosition.x) < 0.001f)
         {
-            Debug.Log("Enemy is stuck, checking for movement...");
+            // Debug.Log("Enemy is stuck, checking for movement...");
             // If the enemy is not moving, increase the stuck timer
             if (stuckTimer < stuckCooldown)
             {

@@ -1,16 +1,26 @@
 using UnityEngine;
 
-public class WallJump : MonoBehaviour
+public class WallJump : PlayerMovement
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
+    public Transform wallCheckPos;
+    public Vector2 wallCheckSize = new Vector2(0.5f, 0.05f);
+    public LayerMask wallLayer;
+    bool groundcheck;
 
-    // Update is called once per frame
+
     void Update()
     {
         
     }
+
+
+    public float wallSlideSpeed = 2;
+    bool isWallSliding;
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireCube(wallCheckPos.position, wallCheckSize);
+    }
+
+
 }

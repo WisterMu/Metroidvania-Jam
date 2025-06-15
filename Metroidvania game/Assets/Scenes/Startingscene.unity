@@ -9082,7 +9082,8 @@ PrefabInstance:
       propertyPath: 'transforms.Array.data[0]'
       value: 
       objectReference: {fileID: 596949586}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 7089902518966661791, guid: 9c6d8d6610793054cade35f8a45a6097, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
